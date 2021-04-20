@@ -19,7 +19,7 @@ export default function NasaApi() {
             ]
           );
           setItems(restructuredData);
-          //console.log(restructuredData);
+          console.log(restructuredData);
         },
         (error) => {
           setIsLoaded(true);
@@ -33,12 +33,6 @@ export default function NasaApi() {
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
-    return (
-      <ul>
-        {data.map((item) => (
-          <li key={item.name}>{item.name}</li>
-        ))}
-      </ul>
-    );
+    return <pre>{data}</pre>;
   }
 }
