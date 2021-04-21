@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Chart } from "react-google-charts";
+
+const dataColumnTitles = [
+  "NEO Name",
+  "Min estimated diameter",
+  "Max estimated diameter",
+];
 
 export default function NasaApi() {
   const [error, setError] = useState(null);
@@ -14,12 +21,11 @@ export default function NasaApi() {
           const restructuredData = data.near_earth_objects.map(
             ({ name, estimated_diameter }) => [
               name,
-              estimated_diameter.kilometers.estimated_diameter_max,
               estimated_diameter.kilometers.estimated_diameter_min,
+              estimated_diameter.kilometers.estimated_diameter_max,
             ]
           );
-          setItems(restructuredData);
-          console.log(restructuredData);
+          setItems([dataColumnTitles, ...restructuredData]);
         },
         (error) => {
           setIsLoaded(true);
@@ -33,6 +39,26 @@ export default function NasaApi() {
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
-    return <pre>{data}</pre>;
+    return (
+      <Chart
+        width={"1000px"}
+        height={"3000px"}
+        chartType="BarChart"
+        loader={<div>Loading Chart</div>}
+        data={data}
+        options={{
+          title: "Information regarding Near-Earth-Objects",
+          chartArea: { width: "50%" },
+          colors: ["Blue", "Red"],
+          hAxis: {
+            title: data[0][1],
+            minValue: 0,
+          },
+          vAxis: {
+            title: data[0][0],
+          },
+        }}
+      />
+    );
   }
 }
