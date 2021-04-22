@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from "react";
+import Chart from "../charts/Chart.js";
+
+const dataColumnTitles = [
+  "NEO Name",
+  "Min estimated diameter (km)",
+  "Max estimated diameter",
+];
 
 export default function NasaApi() {
   const [error, setError] = useState(null);
@@ -14,12 +21,11 @@ export default function NasaApi() {
           const restructuredData = data.near_earth_objects.map(
             ({ name, estimated_diameter }) => [
               name,
-              estimated_diameter.kilometers.estimated_diameter_max,
               estimated_diameter.kilometers.estimated_diameter_min,
+              estimated_diameter.kilometers.estimated_diameter_max,
             ]
           );
-          setItems(restructuredData);
-          console.log(restructuredData);
+          setItems([dataColumnTitles, ...restructuredData]);
         },
         (error) => {
           setIsLoaded(true);
@@ -33,6 +39,12 @@ export default function NasaApi() {
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
-    return <pre>{data}</pre>;
+    return (
+      <Chart
+        data={data}
+        v_Axis={dataColumnTitles[0]}
+        h_Ord={dataColumnTitles[1]}
+      />
+    );
   }
 }
