@@ -42,8 +42,6 @@ export default function NasaApi() {
     return (
       <Chart
         data={data}
-        v_Axis={dataColumnTitles[0]}
-        h_Ord={dataColumnTitles[1]}
       />
     );
   }
