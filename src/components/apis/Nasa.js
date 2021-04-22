@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Chart } from "react-google-charts";
+import Chart from "../charts/Chart.js";
 
 const dataColumnTitles = [
   "NEO Name",
-  "Min estimated diameter",
+  "Min estimated diameter (km)",
   "Max estimated diameter",
 ];
 
@@ -41,23 +41,9 @@ export default function NasaApi() {
   } else {
     return (
       <Chart
-        width={"1000px"}
-        height={"3000px"}
-        chartType="BarChart"
-        loader={<div>Loading Chart</div>}
         data={data}
-        options={{
-          title: "Information regarding Near-Earth-Objects",
-          chartArea: { width: "50%" },
-          colors: ["Blue", "Red"],
-          hAxis: {
-            title: data[0][1],
-            minValue: 0,
-          },
-          vAxis: {
-            title: data[0][0],
-          },
-        }}
+        v_Axis={dataColumnTitles[0]}
+        h_Ord={dataColumnTitles[1]}
       />
     );
   }
