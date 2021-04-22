@@ -13,7 +13,7 @@ export default function NasaApi() {
   const [data, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY")
+    fetch("https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=FyJrQyUlpgQ0XFxZuOEarAZ8JtTYvXXr7fNPDazi")
       .then((res) => res.json())
       .then(
         (data) => {
