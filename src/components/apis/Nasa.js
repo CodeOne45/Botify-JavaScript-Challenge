@@ -11,38 +11,60 @@ export default function NasaApi() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setItems] = useState([]);
+  let today = formatDate(new Date());
+  let startdate = formatDate(
+    new Date(new Date().setDate(new Date().getDate() - 7))
+  );
 
+  const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startdate}&end_date=${today}&detailed=false&api_key=FyJrQyUlpgQ0XFxZuOEarAZ8JtTYvXXr7fNPDazi`;
   useEffect(() => {
-    fetch("https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=FyJrQyUlpgQ0XFxZuOEarAZ8JtTYvXXr7fNPDazi")
-      .then((res) => res.json())
-      .then(
-        (data) => {
-          setIsLoaded(true);
-          const restructuredData = data.near_earth_objects.map(
-            ({ name, estimated_diameter }) => [
+    fetchURL(url);
+  }, []);
+
+  async function fetchURL(url) {
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      //console.log(data);
+      setIsLoaded(true);
+      const dataChart = [];
+      data.near_earth_objects[today].forEach(
+        ({ name, estimated_diameter, close_approach_data }) => {
+          dataChart.push({
+            data: [
               name,
               estimated_diameter.kilometers.estimated_diameter_min,
               estimated_diameter.kilometers.estimated_diameter_max,
-            ]
-          );
-          setItems([dataColumnTitles, ...restructuredData]);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
+            ],
+            orbitName: close_approach_data[0].orbiting_body,
+          });
         }
       );
-  }, []);
+
+      setItems(dataChart);
+    } catch (error) {
+      setIsLoaded(true);
+      setError(error);
+    }
+  }
 
   if (error) {
     return <div>Error : {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
-    return (
-      <Chart
-        data={data}
-      />
-    );
+    return <Chart columns={dataColumnTitles} data={data} />;
   }
+}
+
+function formatDate(dateObject) {
+  let year = dateObject.getFullYear();
+
+  let month = dateObject.getMonth() + 1;
+  if (month < 10) month = "0" + month;
+
+  let day = dateObject.getDate();
+  if (day < 10) day = "0" + day;
+
+  return year + "-" + month + "-" + day;
 }
