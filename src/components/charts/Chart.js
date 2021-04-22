@@ -13,13 +13,14 @@ export default function ChartGoogle(props) {
         chartArea: { width: "50%" },
         colors: ["Blue", "Red"],
         hAxis: {
-          title: props.h_Ord,
-          minValue: 0,
+          title: props.data[0][1], // Neo name
+          minValue: 0
         },
         vAxis: {
-          title: props.v_Axis,
-        },
+          title: props.data[0][0] // Min diameter
+        }
       }}
     />
   );
 }
+
