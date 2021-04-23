@@ -1,3 +1,4 @@
+import "../styles.css";
 import NasaApi from "./apis/Nasa.js";
 function App() {
   return (
