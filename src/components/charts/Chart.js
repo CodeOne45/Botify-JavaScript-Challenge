@@ -46,7 +46,7 @@ export default function ChartGoogle({ columns, data }) {
   function RenderSelect() {
     let [orbit, setorbit] = useState("Earth");
 
-    const aquaticCreatures = [
+    const orbitsList = [
       { label: "Earth", value: "Earth" },
       { label: "Jupyter", value: "Jupyter" },
       { label: "Mars", value: "Mars" },
@@ -62,7 +62,7 @@ export default function ChartGoogle({ columns, data }) {
         <div>{renderChart(getChartPerOrbit(orbit))}</div>
         <div className="selectOrib">
           {" "}
-          <Select onChange={selectCategory} options={aquaticCreatures} />{" "}
+          <Select onChange={selectCategory} options={orbitsList} />{" "}
         </div>
       </div>
     );
