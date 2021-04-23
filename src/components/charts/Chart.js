@@ -39,6 +39,4 @@ export default function ChartGoogle({ columns, data, orbits }) {
       );
     } else return <p> There is no neon orbiting this orbit</p>;
   }
-
-  return renderChart(getChartPerOrbit(orbits));
 }
