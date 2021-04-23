@@ -26,12 +26,15 @@ export default function NasaApi() {
   };
 
   // Button parameters
+  const [displayChart, setDisplayChart] = useState(false);
   let [txt_btn, setTxtBtn] = useState("Table View");
 
   let changeText = () => {
+    // change some state here
     if (txt_btn === "Table View") {
       setTxtBtn("Chart View");
     } else setTxtBtn("Table View");
+    setDisplayChart(!displayChart);
   };
   // Api parameters
 
@@ -90,12 +93,16 @@ export default function NasaApi() {
         >
           {txt_btn}
         </button>
-        <Chart columns={dataColumnTitles} data={data} orbits={orbit} />;
+        {displayChart ? (
+          <Chart columns={dataColumnTitles} data={data} orbits={orbit} />
+        ) : (
+          <Table columns={dataColumnTitles} data={data} orbits={orbit} />
+        )}
+
         <div className="selectOrib">
           {" "}
           <Select onChange={selectCategory} options={orbitsList} />{" "}
         </div>
-        <Table columns={dataColumnTitles} data={data} orbits={orbit} />
       </div>
     );
   }
