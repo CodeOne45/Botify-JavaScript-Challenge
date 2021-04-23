@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Chart from "../charts/Chart.js";
+import Select from "react-select";
 
 const dataColumnTitles = [
   "NEO Name",
@@ -8,6 +9,23 @@ const dataColumnTitles = [
 ];
 
 export default function NasaApi() {
+  // Select parameters
+  let [orbit, setorbit] = useState("Earth");
+
+  const orbitsList = [
+    { label: "Earth", value: "Earth" },
+    { label: "Jupyter", value: "Jupyter" },
+    { label: "Mars", value: "Mars" },
+    { label: "Merc", value: "Merc" },
+  ];
+
+  let selectCategory = (e) => {
+    console.log(e.value);
+    setorbit(e.value);
+  };
+
+  // Api parameters
+
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setItems] = useState([]);
@@ -53,7 +71,15 @@ export default function NasaApi() {
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
-    return <Chart columns={dataColumnTitles} data={data} />;
+    return (
+      <div className="neoChart">
+        <Chart columns={dataColumnTitles} data={data} orbits={orbit} />;
+        <div className="selectOrib">
+          {" "}
+          <Select onChange={selectCategory} options={orbitsList} />{" "}
+        </div>
+      </div>
+    );
   }
 }
 
