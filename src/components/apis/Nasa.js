@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Chart from "../charts/Chart.js";
 import Select from "react-select";
+import Table from "../table/Table.js";
 
 const dataColumnTitles = [
   "NEO Name",
@@ -24,6 +25,14 @@ export default function NasaApi() {
     setorbit(e.value);
   };
 
+  // Button parameters
+  let [txt_btn, setTxtBtn] = useState("Table View");
+
+  let changeText = () => {
+    if (txt_btn === "Table View") {
+      setTxtBtn("Chart View");
+    } else setTxtBtn("Table View");
+  };
   // Api parameters
 
   const [error, setError] = useState(null);
@@ -73,11 +82,20 @@ export default function NasaApi() {
   } else {
     return (
       <div className="neoChart">
+        <button
+          className="btn_table"
+          onClick={() => {
+            changeText();
+          }}
+        >
+          {txt_btn}
+        </button>
         <Chart columns={dataColumnTitles} data={data} orbits={orbit} />;
         <div className="selectOrib">
           {" "}
           <Select onChange={selectCategory} options={orbitsList} />{" "}
         </div>
+        <Table columns={dataColumnTitles} data={data} orbits={orbit} />
       </div>
     );
   }
