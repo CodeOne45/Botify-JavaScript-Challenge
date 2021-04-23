@@ -1,0 +1,9 @@
+.neoChart {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selectOrib {
+  margin-top: 10%;
+  width: 500px;
+}

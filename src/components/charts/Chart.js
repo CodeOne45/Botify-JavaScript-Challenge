@@ -1,4 +1,6 @@
 import { Chart } from "react-google-charts";
+import React, { useState } from "react";
+import Select from "react-select";
 
 export default function ChartGoogle({ columns, data }) {
   //console.log(dataChart);
@@ -14,10 +16,8 @@ export default function ChartGoogle({ columns, data }) {
     return [columns, ...dataChart];
   };
 
-  const chart = getChartPerOrbit("Mars");
-  //console.log(chart);
-
-  function renderChart() {
+  function renderChart(chart) {
+    console.log(chart);
     if (chart.length > 1) {
       return (
         <Chart
@@ -31,11 +31,11 @@ export default function ChartGoogle({ columns, data }) {
             chartArea: { width: "50%" },
             colors: ["Blue", "Red"],
             hAxis: {
-              title: columns[0][1],
+              title: columns[1],
               minValue: 0,
             },
             vAxis: {
-              title: columns[0][0],
+              title: columns[0],
             },
           }}
         />
@@ -43,19 +43,29 @@ export default function ChartGoogle({ columns, data }) {
     } else return <p> There is no neon orbiting this orbit</p>;
   }
 
-  function renderSelect() {
+  function RenderSelect() {
+    let [orbit, setorbit] = useState("Earth");
+
+    const aquaticCreatures = [
+      { label: "Earth", value: "Earth" },
+      { label: "Jupyter", value: "Jupyter" },
+      { label: "Mars", value: "Mars" },
+      { label: "Merc", value: "Merc" },
+    ];
+
     let selectCategory = (e) => {
-      console.log(e.target.value + " is selected");
+      console.log(e.value);
+      setorbit(e.value);
     };
     return (
-      <select id="lang" onChange={selectCategory}>
-        <option value="Earth">Earth</option>
-        <option value="Jupyter">Jupyter</option>
-        <option value="Mars"> Mars</option>
-        <option value="Merc"> Merc</option>
-      </select>
+      <div className="neoChart">
+        <div>{renderChart(getChartPerOrbit(orbit))}</div>
+        <div className="selectOrib">
+          {" "}
+          <Select onChange={selectCategory} options={aquaticCreatures} />{" "}
+        </div>
+      </div>
     );
   }
-
-  return <div>{renderChart()}</div>;
+  return RenderSelect();
 }

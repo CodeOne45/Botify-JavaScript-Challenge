@@ -5,3 +5,4 @@ Botify Interview JavaScript Challenge
 # Instalation
 
 `npm i -s react-google-charts`
+`npm i -s react-select`
