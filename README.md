@@ -10,7 +10,7 @@ The API : https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY
 
 The goal is to spend 4 hours on the test
 
-- Total time spend : https://wakatime.com/@3005d17d-a724-49ea-85b1-e3e3f91dca30/projects/nntbjbjzev?start=2021-04-19&end=2021-04-25
+- Total time spend : 3hr 45mins (https://wakatime.com/@3005d17d-a724-49ea-85b1-e3e3f91dca30/projects/nntbjbjzev?start=2021-04-19&end=2021-04-25)
 
 ## Table of Contents:
 
@@ -25,7 +25,8 @@ npm install
 nmp start
 ```
 
-Make sur to install this 2 dependencies : Google-Charts & React-Select (in case it's not automatically installed)
+Make sur to install this 2 dependencies : Google-Charts & React-Select 
+(in case it's not automatically installed)
 
 ```
 npm i -s react-google-charts
