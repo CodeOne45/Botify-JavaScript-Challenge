@@ -1,3 +1,10 @@
+/**
+ * Botify interview test
+ *
+ * @version 0.1.0
+ * @author [Aman KUMAR](https://github.com/CodeOne45)
+ */
+
 import React, { useEffect, useState } from "react";
 import Chart from "../charts/Chart.js";
 import Select from "react-select";
@@ -9,8 +16,16 @@ const dataColumnTitles = [
   "Max estimated diameter",
 ];
 
+/**
+ * Component for Genreating main view based on Api dat and user choice
+ *
+ * @Component
+ * @returns ({<Chart columns={dataColumnTitles} data={data} orbits={orbit} /> |
+ * <Table columns={dataColumnTitles} data={data} orbits={orbit} /> |
+ * <Select onChange={selectCategory} options={orbitsList} /> })
+ */
 export default function NasaApi() {
-  // Select parameters
+  // Select parameters  & functions
   let [orbit, setorbit] = useState("Earth");
 
   const orbitsList = [
@@ -25,7 +40,7 @@ export default function NasaApi() {
     setorbit(e.value);
   };
 
-  // Button parameters
+  // Button parameters & functions
   const [displayChart, setDisplayChart] = useState(false);
   let [txt_btn, setTxtBtn] = useState("Table View");
 
@@ -36,8 +51,8 @@ export default function NasaApi() {
     } else setTxtBtn("Table View");
     setDisplayChart(!displayChart);
   };
-  // Api parameters
 
+  // Api parameters & functions
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setItems] = useState([]);
@@ -49,7 +64,7 @@ export default function NasaApi() {
   const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startdate}&end_date=${today}&detailed=false&api_key=FyJrQyUlpgQ0XFxZuOEarAZ8JtTYvXXr7fNPDazi`;
   useEffect(() => {
     fetchURL(url);
-  }, []);
+  });
 
   async function fetchURL(url) {
     try {
@@ -78,6 +93,7 @@ export default function NasaApi() {
     }
   }
 
+  // Genrate view depending on the data given by Api and user choice
   if (error) {
     return <div>Error : {error.message}</div>;
   } else if (!isLoaded) {
@@ -108,6 +124,11 @@ export default function NasaApi() {
   }
 }
 
+/**
+ *
+ * @param {*} dateObject
+ * @returns Date : YYYYMMDD
+ */
 function formatDate(dateObject) {
   let year = dateObject.getFullYear();
 

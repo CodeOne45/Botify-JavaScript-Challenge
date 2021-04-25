@@ -1,8 +1,33 @@
+/**
+ * Botify interview test
+ *
+ * @version 0.1.0
+ * @author [Aman KUMAR](https://github.com/CodeOne45)
+ */
+
 import { Chart } from "react-google-charts";
 
+/**
+ * Component for Genreating Chart view from a given data
+ *
+ * @Component
+ * @param {*} objects
+ *    const columns : title of each colimns for charts
+ *    const data : data for to fill charts
+ *    const orbits : orbit name for each data/neo
+ * @returns (
+ *    <Chart columns={dataColumnTitles} data={data} orbits={orbit} />
+ * )
+ */
 export default function ChartGoogle({ columns, data, orbits }) {
   //console.log(dataChart);
 
+  /**
+   *
+   * @param {*} orbitName - name of the orbit for witch chart is genrated
+   * @returns {Array} data - The 2D array of all NEOs that are
+   * orbiting a certain orbital body.
+   */
   const getChartPerOrbit = (orbitName = null) => {
     const dataChart = [];
     data.forEach((element) => {
@@ -14,6 +39,13 @@ export default function ChartGoogle({ columns, data, orbits }) {
     return [columns, ...dataChart];
   };
 
+  /**
+   *
+   * @param {*} chart - contains data to generate a Chart
+   * @returns{(
+   * <Chart columns={dataColumnTitles} data={data} orbits={orbit} /> |
+   *  <p></p>)
+   */
   function renderChart(chart) {
     if (chart.length > 1) {
       return (
@@ -39,5 +71,5 @@ export default function ChartGoogle({ columns, data, orbits }) {
       );
     } else return <p> There is no neon orbiting this orbit</p>;
   }
-    return renderChart(getChartPerOrbit(orbits));
+  return renderChart(getChartPerOrbit(orbits));
 }
